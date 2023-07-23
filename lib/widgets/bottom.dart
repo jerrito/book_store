@@ -55,13 +55,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: "Home",
           tooltip: "Home",
           icon: SvgPicture.asset('./assets/svgs/home.svg',
-              color: Colors.black, width: 18, height: 18),
+              color:Theme.of(context).brightness==Brightness.dark?
+              Colors.white: Colors.black, width: 18, height: 18),
         ),
         BottomNavigationBarItem(
           label: "Add Book",
           tooltip: "Add Book",
           icon: SvgPicture.asset('./assets/svgs/plus-square.svg',
-              color: Colors.black, width: 18, height: 18),
+              color:Theme.of(context).brightness==Brightness.dark?
+              Colors.white: Colors.black, width: 18, height: 18),
           activeIcon: SvgPicture.asset('./assets/svgs/plus-square.svg',
               color: Colors.blue),
         ),
@@ -70,7 +72,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           tooltip: "Search for book",
           //backgroundColor: Color.fromRGBO(0, 110, 255, 1),
           icon: SvgPicture.asset('./assets/svgs/search.svg',
-              color: Colors.black, width: 18, height: 18),
+              color:Theme.of(context).brightness==Brightness.dark?
+              Colors.white: Colors.black, width: 18, height: 18),
           activeIcon:
           SvgPicture.asset('./assets/svgs/search.svg', color: Colors.blue),
         ),
@@ -78,7 +81,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: "Profile",
           tooltip: "Profile management",
           icon: SvgPicture.asset('./assets/svgs/users.svg',
-              color: Colors.black, width: 18, height: 18),
+              color: Theme.of(context).brightness==Brightness.dark?
+                  Colors.white:
+              Colors.black, width: 18, height: 18),
           activeIcon:
           SvgPicture.asset('./assets/svgs/users.svg', color: Colors.blue),
         ),

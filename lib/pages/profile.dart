@@ -33,9 +33,7 @@ class _ProfileState extends State<Profile> {
   GlobalKey<FormState> nameKey = GlobalKey();
   GlobalKey<FormState> emailKey = GlobalKey();
   GlobalKey<FormState> numberKey = GlobalKey();
-  GlobalKey<FormState> locationKey = GlobalKey();
-  GlobalKey<FormState> pinKey = GlobalKey();
-  GlobalKey<FormState> medicalInfoKey = GlobalKey();
+
   File? _image;
   bool saveLoading=false;
   void changeProfilePic({required User? user}) async {
@@ -48,7 +46,7 @@ class _ProfileState extends State<Profile> {
      // print("hell");
 
       await updateUser(user: user!);
-
+      if(!context.mounted)return;
      await Navigator.pushReplacementNamed(context, "profile");
     }
   }
@@ -87,7 +85,7 @@ class _ProfileState extends State<Profile> {
                           Image.network(
                               "${customerProvider?.appUser?.image}",
                               errorBuilder:(BuildContext context,object,stackTrace){
-                                return Icon(
+                                return const Icon(
                                     Icons.person
                                 );
                               } ).image,
@@ -177,7 +175,7 @@ class _ProfileState extends State<Profile> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return saveLoading
-                ? DialogLoading()
+                ? const DialogLoading()
                 : DialogProfile(
               profileType: "name",
               keys: nameKey,
@@ -285,6 +283,7 @@ class _ProfileState extends State<Profile> {
   updateUser({required User user}) async {
     var result = await customerProvider?.updateUser(customer: user);
     if (result?.status == QueryStatus.successful) {
+      if(!context.mounted)return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
         content: Text("Profile updated successfully",
@@ -298,7 +297,7 @@ class _ProfileState extends State<Profile> {
       setState(() {
         saveLoading = false;
       });
-
+      if(!context.mounted)return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 5),
         content:
@@ -338,7 +337,7 @@ class _ProfileState extends State<Profile> {
                       },
                       color: Colors.pink,
                       backgroundColor: Colors.pink),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SecondaryButton(
                       text: "Gallery",
                       onPressed: () async {

@@ -2,7 +2,6 @@ import 'package:book_store/pages/addProduct.dart';
 import 'package:book_store/main.dart';
 import 'package:book_store/widgets/bookList.dart';
 import 'package:book_store/widgets/bottom.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:book_store/constants/Size_of_screen.dart';
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             stream: getBooks(),
             builder: (context, snapshot) {
               if (!snapshot.hasData ||
-                        snapshot.data!.docs.length == 0) {
+                        snapshot.data!.docs.isEmpty) {
                       return const Center(child: Text("No books added yet"));
                     }
                     else
@@ -110,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                                       await productProvider?.getProduct(
                                           productName: book["productName"],
                                           id:customerProvider!.appUser!.id! );
+                                      if(!context.mounted)return;
                                       productProvider=context.read<BookProvider>();
 
                                       if(!context.mounted)return;

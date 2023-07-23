@@ -234,7 +234,7 @@ GlobalKey<FormState> addProductForm=GlobalKey<FormState>();
   }
   Future<String?> uploadFile() async{
    Uint8List fileB=fileByte!;
-   print(fileB.toString());
+   // print(fileB.toString());
     File file = File(imagePath!);
    final storageMain= FirebaseStorage.instance.
     ref(customerProvider?.appUser?.email)

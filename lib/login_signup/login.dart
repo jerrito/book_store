@@ -24,11 +24,9 @@ class LoginSignUp extends StatefulWidget {
 }
 
 class _LoginSignUpState extends State<LoginSignUp> {
-  List<String> pics = ["god_of war.png"];
+
   CustomerProvider? userProvider;
-  int passwordSee = 0;
-  String countryCode = "+233";
-  String countryShortCode = "Gh";
+
   int index_2 = 0;
   bool obscure_2 = true;
   var firebaseService = FirebaseServices();
@@ -45,8 +43,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
   @override
   void initState() {
     userProvider = context.read<CustomerProvider>();
-    pic = (pics[Random().nextInt(pics.length)]).toString();
-    Random().nextInt(pics.length);
+
     super.initState();
   }
 
@@ -56,14 +53,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
     return Scaffold(
       body: Container(
           decoration: const BoxDecoration(
-              // gradient: LinearGradient(
-              //   colors: [
-              //     Color.fromRGBO(210, 230, 250, 0.2),
-              //     Color.fromRGBO(210, 230, 250, 0.2)
-              //   ],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              // ),
+
               color: Color.fromRGBO(210, 230, 250, 0.2)),
           padding: const EdgeInsets.all(10),
           child: Visibility(
@@ -179,9 +169,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
     );
   }
 
-  void increment(){
-    x++;
-  }
+
 
   String? emailValidator(String? value) {
     final pattern =
@@ -214,11 +202,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
     return null;
   }
 
-  /// Logs in the user using email and password.
-  ///
-  /// The function attempts to sign in with the provided email and password using Firebase authentication.
-  /// If the login is successful, the user is redirected to the home page.
-  /// If the login fails, appropriate error messages are shown.
+
   Future<void> loginEmail() async {
     try {
       // Attempt to sign in with email and password
@@ -294,4 +278,11 @@ class _LoginSignUpState extends State<LoginSignUp> {
   }
 
 
+}
+
+class Login{
+  int x=0;
+  void increment(){
+    x++;
+  }
 }

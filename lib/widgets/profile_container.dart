@@ -28,7 +28,7 @@ class ProfileContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("$title"),
+            Text(title),
             IconButton(
               icon: const Icon(Icons.edit,color:Colors.green),
               onPressed: onPressed,
@@ -61,11 +61,11 @@ class DialogProfile extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(10),
           backgroundColor: Colors.black54,
           children: [
             Text("Change your $profileType",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             SecondaryInput(
               obscureText: false,
@@ -78,8 +78,8 @@ class DialogProfile extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Cancel")),
-              TextButton(onPressed: onPressed, child: Text("Save"))
+                  child: const Text("Cancel")),
+              TextButton(onPressed: onPressed, child: const Text("Save"))
             ])
           ]),
     );
@@ -97,9 +97,9 @@ class DialogLoading extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
         backgroundColor: Colors.black54,
-        children: [
+        children: const [
           Center(
               child: SpinKitFadingCube(
                 color: Colors.pink,

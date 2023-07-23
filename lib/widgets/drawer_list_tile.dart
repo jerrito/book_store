@@ -18,7 +18,7 @@ class DrawerListTile extends StatelessWidget {
       ),
       horizontalTitleGap: 30,
       title: Text(title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
           )),
       onTap: () {

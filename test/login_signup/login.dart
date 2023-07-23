@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 void main(){
   
   test("To check increment",(){
-    count=LoginSignUp();
+   var count=Login();
     count.increment();
     expect(count.x,1);
   });

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:book_store/pages/readPDF.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,7 +15,7 @@ import 'package:book_store/widgets/MainButton.dart';
 import 'package:book_store/widgets/MainInput.dart';
 import 'package:book_store/widgets/snackbars.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:book_store/models/user.dart';
 
 class EditBook extends StatefulWidget {
@@ -53,7 +54,7 @@ class _EditBookState extends State<EditBook> {
   String imagePath="";
   String imageLocalPath="";
   bool fileGotten=false;
-  bool network_or_file=true;
+  bool networkOrFile=true;
   Uint8List? fileByte;
 
   @override
@@ -68,8 +69,8 @@ class _EditBookState extends State<EditBook> {
     category=widget.category;
     customerProvider=context.read<CustomerProvider>();
     productProvider=context.read<BookProvider>();
-    print(widget.id);
-     print(customerProvider?.appUser?.fullName);
+    // print(widget.id);
+    //  print(customerProvider?.appUser?.fullName);
   }
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,22 @@ class _EditBookState extends State<EditBook> {
         appBar: AppBar(
             title:const Text("Edit Book"),
           actions: [
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder:
+                        (BuildContext context){
+                      return ReadPDF(
+                        name:widget.bookName,
+                        pdf:widget.file
+                      );
+                    }));
+              },
+              child: SvgPicture.asset(
+                  "./assets/svgs/eye.svg",
+                color:Colors.white
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.delete),
               tooltip: 'Search for a specific food',
@@ -84,6 +101,9 @@ class _EditBookState extends State<EditBook> {
                 deleteBook(context);
               },
             ),
+            Padding(padding: EdgeInsets.only(right:20))
+
+
 
           ],
         ),
@@ -101,9 +121,7 @@ class _EditBookState extends State<EditBook> {
                     enabled: false,
                     validator: checkValidator,
                       initialValue: widget.bookName,
-                      //hintText: "Product Name",
                       label: const Text("Edit Product Name"),
-                      //controller: nameController,
                       obscureText: false,
                     onChanged: (value){
                       booksName=value;
@@ -115,8 +133,6 @@ class _EditBookState extends State<EditBook> {
                       initialValue: widget.description,
                       hintText: "Edit description here",
                       label: const Text("Description"),
-                     // controller: amountController,
-                      //keyboardType: TextInputType.number,
                       obscureText: false,
                        onChanged: (value){
                          description=value;
@@ -206,7 +222,7 @@ class _EditBookState extends State<EditBook> {
                       ),
                     ),
                     Visibility(
-                      visible:network_or_file,
+                      visible:networkOrFile,
                       replacement: Container(
                         margin: const EdgeInsets.only(left:50,right:50),
                         width: 200,height: 150,
@@ -348,11 +364,11 @@ class _EditBookState extends State<EditBook> {
     if (result != null) {
       PlatformFile file = result.files.single;
       Uint8List? fileBytes = result.files.single.bytes;
-      print(fileBytes.toString());
+      // print(fileBytes.toString());
       setState((){
         fileByte=file.bytes;
-        print(fileBytes.toString());
-        print(file.size.toString());
+        // print(fileBytes.toString());
+        // print(file.size.toString());
         filePath=file.name;
 
         sizePath=file.size.toString();
@@ -370,7 +386,7 @@ String? pName=product?.bookName;
 String? describe=product?.description;
 double? pricing=product?.price;
 String? pic=product?.picture;
-if(network_or_file==true){
+if(networkOrFile==true){
   setState(() {
     pName=booksName;
     describe=description;
@@ -388,11 +404,10 @@ else{
         .ref(customerProvider?.appUser?.email)
         .child(imagePath);
     final uploadTask = storageReference.putFile(file);
-    String? returnURL;
     await   uploadTask.whenComplete(() {
-      print('File Uploaded');
+      // print('File Uploaded');
       storageReference.getDownloadURL().then((fileURL)  async {
-        returnURL = fileURL;
+        //returnURL = fileURL;
         setState(() {
           URL=fileURL;
           pName=booksName;
@@ -419,6 +434,7 @@ else{
       setState(() {
         isLoading = false;
       });
+      if(!context.mounted)return;
       PrimarySnackBar(context).displaySnackBar(
         message: "Product updated successfully",
         backgroundColor: Colors.green,
@@ -514,16 +530,9 @@ else{
         _image = File(pickedFile.path);
         setState(() {
           imagePath=pickedFile!.path;
-          network_or_file=false;
+          networkOrFile=false;
         });
-        // Use if you only need a single picture
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => DisplayPictureScreen(
-        //     // Pass the automatically generated path to
-        //     // the DisplayPictureScreen widget.
-        //     imagePath: pickedFile!.path,
-        //   ),
-        // ));
+
       } else {
         PrimarySnackBar(context).displaySnackBar(
             message: "No image selected");
@@ -543,15 +552,9 @@ else{
         _image = File(pickedFile.path); // Use if you only need a single picture
         setState(() {
           imagePath=pickedFile!.path;
-          network_or_file=false;
+          networkOrFile=false;
         });
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => DisplayPictureScreen(
-        //     // Pass the automatically generated path to
-        //     // the DisplayPictureScreen widget.
-        //     imagePath: pickedFile!.path,
-        //   ),
-        // ));
+
       }
     });
   }

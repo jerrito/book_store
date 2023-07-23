@@ -29,21 +29,21 @@ class BookContainer extends StatelessWidget {
               child: Text(
                 name.length>=25?
                 "${name.substring(0,25)}...":name
-                ,style: TextStyle(
+                ,style: const TextStyle(
                 fontSize: 18,fontWeight: FontWeight.bold
               ),),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Text("${description}",style: TextStyle(
+                child: Text(description,style: const TextStyle(
                   fontSize: 14,fontWeight: FontWeight.bold,
                   color:Colors.grey
                   ,),),
               ),
             ),
             Center(
-              child: Text("GH₵ ${price}",style: TextStyle(
+              child: Text("GH₵ ${price}",style: const TextStyle(
                   fontSize: 14,fontWeight: FontWeight.bold,
                 color:Colors.blue
               ,),),
